@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import dataArray from './dataList.json'
 
+export interface ImageI {
+  imagePath: string,
+  title: string
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,14 +13,14 @@ import dataArray from './dataList.json'
 })
 export class AppComponent{
   title = 'project';
-  image:any;
+  image:ImageI;
   searchText:string = '';
   isOpened:boolean=false;
   activeIndex:number = 0;
   array = dataArray;
 
 
-  setImage(selectedImage:any){
+  setImage(selectedImage:ImageI){
     this.isOpened=true;
     this.image=selectedImage;
   }
