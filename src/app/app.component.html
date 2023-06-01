@@ -1,0 +1,66 @@
+<div class="wrapper">
+  <div class="tab-wrapper">
+    <ul class="tabs">
+      <div class="tab-style" *ngFor="let tab of array; let i = index">
+        <li
+          class="tab-link"
+          [ngClass]="activeIndex == i || array.length == 1 ? 'active' : ''"
+          (click)="activeIndex = i"
+        >
+          {{ tab.tabname }}
+          <a
+            class="close"
+            (click)="deleteTab(i)"
+            *ngIf="array.length > 1 && activeIndex == i"
+            >X</a
+          >
+        </li>
+      </div>
+    </ul>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="tab-content">{{ array[activeIndex].heading }}</div>
+  </div>
+</div>
+
+<div class="input-wrapper">
+  <input
+    class="input-grey-rounded"
+    type="text"
+    placeholder="Search"
+    [(ngModel)]="searchText"
+  />
+</div>
+
+<section class="post-list">
+  <div
+    *ngFor="let image of array[activeIndex].imageList | appFilter : searchText"
+  >
+    <div type="button" class="post" (click)="setImage(image)">
+      <figure class="post-image">
+        <img src="{{ image.imagePath }}" alt="" />
+      </figure>
+      <span class="post-overlay">
+        <p>
+          <span>{{ image.title }}</span>
+        </p>
+      </span>
+    </div>
+  </div>
+
+  <div
+    class="show"
+    type="button"
+    *ngIf="isOpened == true"
+    (click)="isOpened = false"
+  >
+    <div class="overlay"></div>
+    <div class="img-show">
+      <img src="{{ image.imagePath }}" />
+      <p class="title">
+        {{ image.title }}
+      </p>
+    </div>
+  </div>
+</section>
